@@ -5,7 +5,22 @@ import marked from 'marked'
 
 class App extends Component {
   state = {
-    text: sampleText
+    text: ''
+  }
+  componentDidMount() {
+    const text = localStorage.getItem('markedText')
+    if (text) {
+      this.setState({ text })
+    }
+    else {
+      this.setState({
+        text : sampleText
+      })
+    }
+  }
+  componentDidUpdate() {
+    const { text } = this.state
+    localStorage.setItem('markedText',text)
   }
   handlechange = event => {
     const text = event.target.value
