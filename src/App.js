@@ -11,6 +11,11 @@ class App extends Component {
     const text = event.target.value
     this.setState({ text })
   }
+  markdownText = text => {
+    return {
+      __html : marked(text,{ sanitize : true})
+    } 
+  }
   render() {
     return (
       <Fragment>
@@ -19,11 +24,11 @@ class App extends Component {
             <div className="col-sm-6">
               <textarea value={this.state.text} onChange={this.handlechange} className="form-control" rows="35" />
             </div>
-            <div className="col-sm-6">
-              {this.state.text}
+            <div className="col-sm-6" >
+              <div dangerouslySetInnerHTML={this.markdownText(this.state.text)}>
+              </div>
             </div>
           </div>
-
         </div>
       </Fragment>
 
